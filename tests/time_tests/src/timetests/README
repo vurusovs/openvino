@@ -6,4 +6,8 @@ else:
 cmake --build . --config Debug -j 8
 
 Run:
-time_tests_reproducer.exe -m <path_to_IR_xml> -d GPU -s <path_to_txt_file>
+time_tests_reproducer.exe -m <path_to_IR_xml> -d GPU -s <path_to_txt_file> -niter <iter_num>
+
+Note:
+To enable cl_cache, create `cl_cache` dir in working directory and run `time_tests_reproducer.exe` with `-niter 1`
+ to prepare cache. Details about how to configure cl_cache: https://github.com/intel/compute-runtime/blob/master/opencl/doc/FAQ.md#how-can-cl_cache-be-enabled
