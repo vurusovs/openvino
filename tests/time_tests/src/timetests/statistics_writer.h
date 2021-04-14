@@ -74,9 +74,9 @@ public:
         double stdev = std::sqrt(sq_sum / item.second.size());
         statistics_file << item.first << ": " << "\n"
                         << "  avg: " << mean << "\n"
-                        << "  stdev: " << stdev << "\n"
-                        << "---" << "\n"
-                        << "unit_of_measurement: microsecond" << "\n";
+                        << "  stdev: " << stdev << "\n";
     }
+    statistics_file << "---" << "\n"
+                    << "unit_of_measurement: microsecond" << "\n";
   }
 };
