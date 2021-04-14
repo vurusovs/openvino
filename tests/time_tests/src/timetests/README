@@ -1,0 +1,9 @@
+Build:
+if OpenVINO installed:
+    cmake -G "Visual Studio 16 2019" -A x64 ..
+else:
+    cmake -G "Visual Studio 16 2019" -A x64 -DInferenceEngineDeveloperPackage_DIR=<path_to_openvino_build_dir> ..
+cmake --build . --config Debug -j 8
+
+Run:
+time_tests_reproducer.exe -m <path_to_IR_xml> -d GPU -s <path_to_txt_file>

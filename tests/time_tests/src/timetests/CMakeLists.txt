@@ -2,18 +2,39 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# add dummy `time_tests` target combines all time tests
-add_custom_target(time_tests)
+cmake_minimum_required(VERSION 3.13)
 
-# Build test from every source file.
-# Test target name is source file name without extension.
-FILE(GLOB tests "*.cpp")
+set (CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the build type")
 
-foreach(test_source ${tests})
-    get_filename_component(test_name ${test_source} NAME_WE)
-    add_executable(${test_name} ${test_source})
+project(time_tests_reproducer)
 
-    target_link_libraries(${test_name} PRIVATE IE::inference_engine timetests_helper)
+find_package(InferenceEngine)
+if (NOT InferenceEngine_FOUND)
+    set (HAVE_SYS_STAT_H 1)
+    set (HAVE_INTTYPES_H 1)
+    set (INTTYPES_FORMAT C99)
+    find_package(InferenceEngineDeveloperPackage REQUIRED)
+endif()
 
-    add_dependencies(time_tests ${test_name})
-endforeach()
+set (TARGET_NAME "time_tests_reproducer")
+file (GLOB HDR *.h)
+file (GLOB SRC *.cpp)
+add_executable(${TARGET_NAME} ${HDR} ${SRC})
+
+include(FetchContent)
+FetchContent_Declare(
+    gflags
+    GIT_REPOSITORY "https://github.com/gflags/gflags.git"
+    GIT_TAG "v2.2.2"
+)
+FetchContent_GetProperties(gflags)
+if(NOT gflags_POPULATED)
+    FetchContent_Populate(gflags)
+    add_subdirectory(${gflags_SOURCE_DIR} ${gflags_BINARY_DIR})
+endif()
+
+target_link_libraries(${TARGET_NAME}
+    gflags
+    IE::inference_engine
+    #${InferenceEngine_LIBRARIES}
+    )
