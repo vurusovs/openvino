@@ -106,5 +106,11 @@ int main(int argc, char **argv) {
     return -1;
 
   StatisticsWriter::Instance().setFile(FLAGS_s);
-  return runPipeline(FLAGS_m, FLAGS_d);
+  for (int i = 0; i < FLAGS_niter; ++i) {
+     auto _status = runPipeline(FLAGS_m, FLAGS_d);
+     if (_status != 0)
+         return _status;
+  }
+  StatisticsWriter::Instance().writeToFile();
+  return 0;
 }

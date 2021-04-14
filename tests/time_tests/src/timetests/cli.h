@@ -30,6 +30,10 @@ static const char target_device_message[] =
 static const char statistics_path_message[] =
     "Required. Path to a file to write statistics.";
 
+/// @brief message for niter argument
+static const char niter_message[] =
+    "Optional. Path to a file to write statistics.";
+
 /// @brief Define flag for showing help message <br>
 DEFINE_bool(h, false, help_message);
 
@@ -48,6 +52,10 @@ DEFINE_string(d, "", target_device_message);
 /// It is a required parameter
 DEFINE_string(s, "", statistics_path_message);
 
+/// @brief Define parameter for set number of iteration <br>
+/// It is an optional parameter
+DEFINE_uint32(niter, 3, niter_message);
+
 /**
  * @brief This function show a help message
  */
@@ -58,8 +66,7 @@ static void showUsage() {
   std::cout << std::endl;
   std::cout << "    -h, --help                " << help_message << std::endl;
   std::cout << "    -m \"<path>\"               " << model_message << std::endl;
-  std::cout << "    -d \"<device>\"             " << target_device_message
-            << std::endl;
-  std::cout << "    -s \"<path>\"               " << statistics_path_message
-            << std::endl;
+  std::cout << "    -d \"<device>\"             " << target_device_message << std::endl;
+  std::cout << "    -s \"<path>\"               " << statistics_path_message << std::endl;
+  std::cout << "    -niter \"<niter>\"          " << niter_message << std::endl;
 }
