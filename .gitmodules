@@ -18,3 +18,11 @@
 	path = thirdparty/xbyak
 	url = https://github.com/herumi/xbyak.git
 	ignore = dirty
+[submodule "tests/tests_utils/thirdparty/gflags"]
+	path = tests/tests_utils/thirdparty/gflags
+	url = https://github.com/gflags/gflags.git
+	ignore = dirty
+[submodule "tests/tests_utils/thirdparty/gtest"]
+	path = tests/tests_utils/thirdparty/gtest
+	url = https://github.com/openvinotoolkit/googletest.git
+	ignore = dirty
